@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 public class ScheduleListener {
     private static final Log logger = LogFactory.get();
 
+/*
     public static void addListeners() {
         MainWindow.mainWindow.getScheduleSaveButton().addActionListener(e -> {
             try {
@@ -106,4 +107,5 @@ public class ScheduleListener {
             }
         });
     }
+*/
 }

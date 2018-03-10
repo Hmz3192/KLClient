@@ -12,6 +12,7 @@ import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -146,6 +147,11 @@ public class MainWindow {
     private JLabel scheduleDetailLabel;
     private JTextArea textArea1;
     private JTextField textField1;
+    private JTextArea TextArea;
+    private JTable table1;
+    private JTextField textField2;
+    private JButton 选择文件Button;
+    private JTree tree1;
     public static JFrame frame;
 
     public static MainWindow mainWindow;
@@ -180,16 +186,36 @@ public class MainWindow {
 
         Init.initOthers();
         Init.initAllTab();
+        Init.initTemplateDataTable();
+        Init.initTree();
+
 
         // 添加事件监听
-        AboutListener.addListeners();
-        SettingListener.addListeners();
-        MsgListener.addListeners();
-        MemberListener.addListeners();
-        PushListener.addListeners();
-        ScheduleListener.addListeners();
-        TabListener.addListeners();
-        FramListener.addListeners();
+//        AboutListener.addListeners();
+//        SettingListener.addListeners();
+//        MsgListener.addListeners();
+//        MemberListener.addListeners();
+//        PushListener.addListeners();
+//        ScheduleListener.addListeners();
+//        TabListener.addListeners();
+//        FramListener.addListeners();
+    }
+
+
+    public JTree getTree1() {
+        return tree1;
+    }
+
+    public void setTree1(JTree tree1) {
+        this.tree1 = tree1;
+    }
+
+    public JTable getTable1() {
+        return table1;
+    }
+
+    public void setTable1(JTable table1) {
+        this.table1 = table1;
     }
 
     public JPanel getMainPanel() {
@@ -1202,5 +1228,9 @@ public class MainWindow {
 
     public void setScheduleDetailLabel(JLabel scheduleDetailLabel) {
         this.scheduleDetailLabel = scheduleDetailLabel;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

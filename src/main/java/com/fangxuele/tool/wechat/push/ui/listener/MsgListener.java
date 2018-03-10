@@ -39,7 +39,7 @@ public class MsgListener {
 //        MainWindow.mainWindow.getMsgHistoryComboBox().addItemListener(e -> Init.initMsgTab(true));
 
         // 模板数据-添加 按钮事件
-        MainWindow.mainWindow.getTemplateMsgDataAddButton().addActionListener(e -> {
+        /*MainWindow.mainWindow.getTemplateMsgDataAddButton().addActionListener(e -> {
             String[] data = new String[3];
             data[0] = MainWindow.mainWindow.getTemplateDataNameTextField().getText();
             data[1] = MainWindow.mainWindow.getTemplateDataValueTextField().getText();
@@ -74,7 +74,7 @@ public class MsgListener {
                 }
                 tableModel.addRow(data);
             }
-        });
+        })*/;
 
         // 保存按钮事件
         MainWindow.mainWindow.getMsgSaveButton().addActionListener(e -> {
@@ -125,7 +125,7 @@ public class MsgListener {
         });
 
         // 预览按钮事件
-        MainWindow.mainWindow.getPreviewMsgButton().addActionListener(e -> {
+        /*MainWindow.mainWindow.getPreviewMsgButton().addActionListener(e -> {
             try {
                 if ("".equals(MainWindow.mainWindow.getPreviewUserField().getText().trim())) {
                     JOptionPane.showMessageDialog(MainWindow.mainWindow.getSettingPanel(), "预览消息用户不能为空！", "提示",
@@ -140,10 +140,10 @@ public class MsgListener {
                         JOptionPane.ERROR_MESSAGE);
                 logger.error(e1);
             }
-        });
+        })*/;
 
         // 编辑消息-新建
-        MainWindow.mainWindow.getCreateMsgButton().addActionListener(e -> {
+/*        MainWindow.mainWindow.getCreateMsgButton().addActionListener(e -> {
             MainWindow.mainWindow.getMsgNameField().setText("");
             MainWindow.mainWindow.getMsgTemplateIdTextField().setText("");
             MainWindow.mainWindow.getMsgTemplateUrlTextField().setText("");
@@ -162,6 +162,6 @@ public class MsgListener {
             for (int i = 0; i < rowCount; i++) {
                 tableModel.removeRow(0);
             }
-        });
+        })*/;
     }
 }

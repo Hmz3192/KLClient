@@ -26,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -137,7 +139,7 @@ public class Init {
         }
 
 //        MainWindow.mainWindow.setMsgNameField(msgName);
-        MainWindow.mainWindow.setPreviewUserField(configer.getPreviewUser());
+//        MainWindow.mainWindow.setPreviewUserField(configer.getPreviewUser());
 
         Map<String, String[]> msgMap = msgHisManager.readMsgHis();
         if (!isInitFromHisComboxChang) {
@@ -302,7 +304,7 @@ public class Init {
     /**
      * 初始化计划任务tab
      */
-    public static void initScheduleTab() {
+    /*public static void initScheduleTab() {
         // 开始
         MainWindow.mainWindow.setRunAtThisTimeRadioButton(configer.isRadioStartAt());
         MainWindow.mainWindow.setStartAtThisTimeTextField(configer.getTextStartAt());
@@ -315,7 +317,7 @@ public class Init {
         MainWindow.mainWindow.setRunPerWeekRadioButton(configer.isRadioPerWeek());
         MainWindow.mainWindow.setSchedulePerWeekComboBox(configer.getTextPerWeekWeek());
         MainWindow.mainWindow.setStartPerWeekTextField(configer.getTextPerWeekTime());
-    }
+    }*/
 
     /**
      * 初始化设置tab
@@ -392,24 +394,33 @@ public class Init {
      * 初始化模板消息数据table
      */
     public static void initTemplateDataTable() {
-        String[] headerNames = {"Name", "Value", "Color", "操作"};
-        DefaultTableModel model = new DefaultTableModel(null, headerNames);
-        MainWindow.mainWindow.getTemplateMsgDataTable().setModel(model);
-        MainWindow.mainWindow.getTemplateMsgDataTable().updateUI();
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().
+        String[] headerNames = {"名称", "url", "类型", "操作"};
+
+        Object[][] data = {
+                {"SwitchHosts_v0.2.2.1801", "/static/SwitchHosts_v0.2.2.1801", "exe", ""},
+                {"jQueryPage5189201705042204", "/static/jQueryPage5189201705042204", "png", ""},
+                {"recommendSystem", "/static/recommendSystem", "excel", ""}};
+
+
+
+        DefaultTableModel model = new DefaultTableModel(data, headerNames);
+        MainWindow.mainWindow.getTable1().setModel(model);
+        MainWindow.mainWindow.getTable1().updateUI();
+        MainWindow.mainWindow.getTable1().getColumnModel().
                 getColumn(headerNames.length - 1).
-                setCellRenderer(new Init.ButtonColumn(MainWindow.mainWindow.getTemplateMsgDataTable(), headerNames.length - 1));
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().
+                setCellRenderer(new Init.ButtonColumn(MainWindow.mainWindow.getTable1(), headerNames.length - 1));
+        MainWindow.mainWindow.getTable1().getColumnModel().
                 getColumn(headerNames.length - 1).
-                setCellEditor(new Init.ButtonColumn(MainWindow.mainWindow.getTemplateMsgDataTable(), headerNames.length - 1));
+                setCellEditor(new Init.ButtonColumn(MainWindow.mainWindow.getTable1(), headerNames.length - 1));
 
         // 设置列宽
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().getColumn(0).setPreferredWidth(150);
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().getColumn(0).setMaxWidth(150);
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().getColumn(2).setPreferredWidth(130);
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().getColumn(2).setMaxWidth(130);
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().getColumn(3).setPreferredWidth(130);
-        MainWindow.mainWindow.getTemplateMsgDataTable().getColumnModel().getColumn(3).setMaxWidth(130);
+        MainWindow.mainWindow.getTable1().getColumnModel().getColumn(0).setPreferredWidth(150);
+        MainWindow.mainWindow.getTable1().getColumnModel().getColumn(0).setMaxWidth(150);
+        MainWindow.mainWindow.getTable1().getColumnModel().getColumn(2).setPreferredWidth(130);
+        MainWindow.mainWindow.getTable1().getColumnModel().getColumn(2).setMaxWidth(130);
+        MainWindow.mainWindow.getTable1().getColumnModel().getColumn(3).setPreferredWidth(130);
+        MainWindow.mainWindow.getTable1().getColumnModel().getColumn(3).setMaxWidth(130);
+        MainWindow.mainWindow.getTable1().setRowHeight(50);
     }
 
     /**
@@ -417,10 +428,55 @@ public class Init {
      */
     public static void initAllTab() {
         initMsgTab(false);
-        initMemberTab();
+//        initMemberTab();
         initPushTab();
-        initScheduleTab();
+//        initScheduleTab();
         initSettingTab();
+    }
+
+    public static void initTree() {
+        MainWindow.mainWindow.getTree1().putClientProperty("Jtree.lineStyle", "Horizontal");
+
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("资源管理器");
+        DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("我的公文包");
+        DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("我的电脑");
+        DefaultMutableTreeNode node3 = new DefaultMutableTreeNode("收藏夹");
+        DefaultMutableTreeNode node4 = new DefaultMutableTreeNode("Readme");
+
+        DefaultTreeModel treeModel = new DefaultTreeModel(root);
+        treeModel.insertNodeInto(node1, root, root.getChildCount());
+        treeModel.insertNodeInto(node2, root, root.getChildCount());
+        treeModel.insertNodeInto(node3, root, root.getChildCount());
+        treeModel.insertNodeInto(node4, root, root.getChildCount());
+
+        DefaultMutableTreeNode leafnode = new DefaultMutableTreeNode("公司文件");
+
+        // DefaultTreeModel类所提供的insertNodeInto()方法加入节点到父节点的数量.
+        treeModel.insertNodeInto(leafnode, node1, node1.getChildCount());
+        leafnode = new DefaultMutableTreeNode("个人信件");
+        treeModel.insertNodeInto(leafnode, node1, node1.getChildCount());
+        leafnode = new DefaultMutableTreeNode("私人文件");
+        treeModel.insertNodeInto(leafnode, node1, node1.getChildCount());
+
+        leafnode = new DefaultMutableTreeNode("本机磁盘(C:)");
+        treeModel.insertNodeInto(leafnode, node2, node2.getChildCount());
+        leafnode = new DefaultMutableTreeNode("本机磁盘(D:)");
+        treeModel.insertNodeInto(leafnode, node2, node2.getChildCount());
+        leafnode = new DefaultMutableTreeNode("本机磁盘(E:)");
+        treeModel.insertNodeInto(leafnode, node2, node2.getChildCount());
+
+        DefaultMutableTreeNode node31 = new DefaultMutableTreeNode("网站列表");
+        treeModel.insertNodeInto(node31, node3, node3.getChildCount());
+        leafnode = new DefaultMutableTreeNode("奇摩站");
+        treeModel.insertNodeInto(leafnode, node3, node3.getChildCount());
+        leafnode = new DefaultMutableTreeNode("职棒消息");
+        treeModel.insertNodeInto(leafnode, node3, node3.getChildCount());
+        leafnode = new DefaultMutableTreeNode("网络书店");
+        treeModel.insertNodeInto(leafnode, node3, node3.getChildCount());
+        MainWindow.mainWindow.getTree1().setModel(treeModel);
+        MainWindow.mainWindow.getMemberTabImportProgressBar().setValue(30);
+        MainWindow.mainWindow.getMemberTabCountLabel().setText(String.valueOf(11));
+
     }
 
     /**
